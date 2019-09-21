@@ -1,6 +1,9 @@
 # Twitter Sentiment Analysis
 Sentiment Analysis is a technique used in text mining. This dataset contains 31,962 tweets extracted using the twitter api . The tweets have been annotated  and they can be used to detect sentiment. As a part of Natural Language Processing, algorithms like SVM, Naive Bayes is used in predicting the polarity of the sentence.
 
+<img width="522" alt="tweet" src="https://user-images.githubusercontent.com/55571522/65373129-cfbd3700-dc96-11e9-9136-51a8b596d10f.png">
+
+
 # Fine Grained Sentiment Analysis
 Sometimes you may be also interested in being more precise about the level of polarity of the opinion, so instead of just talking about positive, neutral, or negative opinions you could consider the following categories:
 
