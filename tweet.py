@@ -32,8 +32,24 @@ X = cv.fit_transform(processed_tweet)
 X = X.toarray() #The vectors returned from a call to transform() will be sparse vectors, and you can transform them back to numpy arrays 
 y = dataset['label'].values
 
-from sklearn.model_selection import train_test_split
-X_train, X_test, y_train, y_test = train_test_split(X, y)
+from sklearn.model_selection import KFold
+kf = KFold(n_splits = 10, shuffle = False, random_state = 42)
+
+from sklearn.linear_model import LinearRegression #model should be for continoous 'y' for this dataset
+lr = LinearRegression()
+
+scores = []
+
+for train_index,test_index in kf.split(X):
+    print('Train: ',train_index)
+    print('Test: ',test_index)
+    
+    X_train, X_test, y_train, y_test = X[train_index], X[test_index], y[train_index], y[test_index]
+
+    lr.fit(X_train,y_train)
+    scores.append(lr.score(X_test, y_test))
+
+print(np.mean(scores))
 
 
 from sklearn.naive_bayes import GaussianNB
@@ -42,6 +58,35 @@ n_b.fit(X_train, y_train)
 n_b.score(X_train, y_train)
 n_b.score(X_test, y_test)
 n_b.score(X, y)
+
+from sklearn.linear_model import LinearRegression
+lr = LinearRegression()
+lr.fit(X_train, y_train)
+lr.score(X_train, y_train)
+lr.score(X_test, y_test)
+lr.score(X, y)
+
+from sklearn.svm import LinearSVC
+svc = LinearSVC()
+svc.fit(X_train, y_train)
+svc.score(X_train, y_train)
+svc.score(X_test, y_test)
+svc.score(X, y)
+
+from sklearn.svm import SVC
+svc = SVC(kernel = 'poly')
+svc.fit(X_train, y_train)
+svc.score(X_train, y_train)
+svc.score(X_test, y_test)
+svc.score(X, y)
+
+from sklearn import metrics
+m = metrics.confusion_matrix(y_test,y_pred)
+print(m) 
+
+print("Precision score: ", metrics.precision_score(y_test,y_pred))
+print("Recall score: ", metrics.recall_score(y_test,y_pred))
+print("Fscore: ", metrics.f1_score(y_test,y_pred))
 
 print(cv.get_feature_names())
 
